@@ -42,77 +42,61 @@ Semaphore wilmaSemaphore(10);
 
 void fredSee()
 {
-  if(fHeight < 7 )
+  if(fHeight < 7)
   {
-    while(fHeight != 7)
-    {
-      fredSemaphore.wait();
-      fHeight++;
-      wHeight--;
-      cout << "Fred is " << fHeight << " feet off the ground.\n";
-      sleep(1);
-      fredSemaphore.signal();
-    }
-  }
-  else
-  {
-    while(fHeight != 1)
-    {
-      fredSemaphore.wait();
-      fHeight--;
-      wHeight++;
-      cout << "Fred is " << fHeight << " feet off the ground.\n";
-      sleep(1);
-      fredSemaphore.signal();
-    }
+    fredSemaphore.wait();
+    fHeight++;
+    wHeight--;
+    cout << "Fred is " << fHeight << " feet off the ground.   ";
+    cout << "Wilma is " << wHeight << " feet off the ground.\n";
+    sleep(1);
+    fredSemaphore.signal();
+
   }
 }
 
 void wilmaSaw()
 {
-  if( wHeight > 1 )
+  if(wHeight < 7)
   {
-    while(wHeight != 7)
-    {
-      wilmaSemaphore.wait();
-      wHeight = wHeight + 1.5;
-      fHeight = fHeight - 1.5;
-      cout << "Wilma is " << wHeight << " feet off the ground.\n";
-      sleep(1);
-      wilmaSemaphore.signal();
-    }
-  }
-  else
-  {
-    while(wHeight != 1)
-    {
-      wilmaSemaphore.wait();
-      wHeight = wHeight - 1.5;
-      fHeight = fHeight + 1.5;
-      cout << "Wilma is " << wHeight << " feet off the ground.\n";
-      sleep(1);
-      wilmaSemaphore.signal();
-    }
+    wilmaSemaphore.wait();
+    wHeight = wHeight + 1.5;
+    fHeight = fHeight - 1.5;
+    cout << "Wilma is " << wHeight << " feet off the ground.    ";
+    cout << "Fred is " << fHeight << " feet off the ground.\n";
+    sleep(1);
+    wilmaSemaphore.signal();
   }
 }
 
 int main()
 {
+    while(count < 10)
+    {
+      if(fHeight == 1 && wHeight == 7)
+      {
+        cout << "\n********** Fred pushes off **********\n";
+        while(fHeight < 7)
+        {
+          thread fred(fredSee);
+          fred.join();
+        }
+      }
+      if(wHeight == 1 && fHeight == 7)
+      {
+        cout << "\n********** Wilma pushes off **********\n";
+        while(wHeight < 7)
+        {
+          thread wilma(wilmaSaw);
+          wilma.join();
+        }
+      }
+      count++;
+    }
 
-  while(count < 20)
-  {
-    thread t1(fredSee);
-    thread t2(wilmaSaw);
-    t1.join();
-    t2.join();
-    count++;
-  }
-  //thread t1(fredSee);
-  //thread t2(wilmaSaw);
-
-  //t1.join();
-  //t2.join();
+    return 0;
 }
+
 
 
 
