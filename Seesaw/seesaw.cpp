@@ -37,8 +37,8 @@ struct Semaphore {
 
 int count = 0;
 double fHeight = 1.0, wHeight = 7.0;
-Semaphore fredSemaphore(10);
-Semaphore wilmaSemaphore(10);
+Semaphore fredSemaphore(1);
+Semaphore wilmaSemaphore(1);
 
 void fredSee()
 {
