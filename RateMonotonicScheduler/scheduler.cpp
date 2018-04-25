@@ -29,7 +29,50 @@ void doWork(int arr[10][10])
   }
 }
 
+void scheduler()
+{
+
+}
+
+void thread1()
+{
+
+}
+
+void thread2()
+{
+
+}
+
+void thread3()
+{
+
+}
+
+void thread4()
+{
+
+}
+
 int main()
 {
   doWork(work);
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//
